@@ -263,11 +263,19 @@ function FNFromRecFN#(expWidth, sigWidth) fNFromRecFN
   return f;
 endfunction
 
-function Bit#(10) classifyRecFN(Bit#(TAdd#(1, TAdd#(expWidth, sigWidth))) in)
+typedef function Bit#(10) _
+  ( Bit#(TAdd#(1, TAdd#(expWidth, sigWidth))) in
+  ) ClassifyRecFN#(
+  numeric type expWidth, numeric type sigWidth
+);
+
+function ClassifyRecFN#(expWidth, sigWidth) classifyRecFN
   provisos (Add#(1, fractWidth, sigWidth));
   Integer eW = valueOf(expWidth);
   Integer sW = valueOf(sigWidth);
   Integer minNormExp = (2 ** (eW - 1)) + 2;
+
+  function Bit#(10) f(Bit#(TAdd#(1, TAdd#(expWidth, sigWidth))) in);
 
   RawFloat#(expWidth, sigWidth) rawIn = rawFloatFromRecFN(in);
   Bool isSigNaN = isSigNaNRawFloat(rawIn);
@@ -286,6 +294,9 @@ function Bit#(10) classifyRecFN(Bit#(TAdd#(1, TAdd#(expWidth, sigWidth))) in)
     pack(rawIn.sign && isFiniteNonzero && !isSubnormal),
     pack(rawIn.sign && rawIn.isInf)
   };
+
+  endfunction
+  return f;
 endfunction
 
 typedef
