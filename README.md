@@ -6,4 +6,5 @@
 - Then run `make` in `tests/berkeley-testfloat-3/build/<target-architecture>`
 - Then run `make` in the project root, to copy the generated Verilog files to `tests/HardFloat-1/source`
 - Assuming `Verilator` is installed, run `make test-level1` in `tests/HardFloat-1/test/build/Verilator-GCC`
-
+- Assuming `iverilog` is installed, run `make test-level1` in `tests/HardFloat-1/test/build/IcarusVerilog`
+- Note that the directory that uses `iverilog` is specialized to the `x86` architecture and the directory that uses `Verilator` is specialized to the `ARM` architecture for the convenience of the maintainers of this repository.

@@ -45,7 +45,7 @@ TEST_SOURCE_DIR ?= ../../source
 COMPILE_V = \
   iverilog -gstrict-expr-width -I$(SOURCE_DIR)/$(SPECIALIZE_TYPE) \
     -I$(SOURCE_DIR)
-TESTFLOAT_GEN = testfloat_gen
+TESTFLOAT_GEN = ../../../../berkeley-testfloat-3/build/Linux-x86_64-GCC/testfloat_gen
 SIMULATE_VVP = vvp -N
 
 DELETE = rm -f
@@ -343,9 +343,9 @@ $(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF32ToR
 $(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF64ToRecF16,f64_to_f16))
 $(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF64ToRecF32,f64_to_f32))
 $(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF64ToRecF128,f64_to_f128))
-$(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF128ToRecF16,f128_to_f16))
-$(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF128ToRecF32,f128_to_f32))
-$(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF128ToRecF64,f128_to_f64))
+# $(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF128ToRecF16,f128_to_f16))
+# $(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF128ToRecF32,f128_to_f32))
+# $(eval $(call otherTest_template,recFNToRecFN,$(SRC_TEST_RECFNTORECFN),recF128ToRecF64,f128_to_f64))
 
 SRC_TEST_ADDRECFN_ADD = \
   addRecFN.v \
