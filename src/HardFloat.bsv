@@ -757,4 +757,3 @@ function CompareRecFN#(expWidth, sigWidth) mkCompareRecFN
 
   return f;
 endfunction
-
