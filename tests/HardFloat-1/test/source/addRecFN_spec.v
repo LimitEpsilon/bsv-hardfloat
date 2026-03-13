@@ -47,8 +47,17 @@ module
         output [4:0] exceptionFlags
     );
 
-    addRecFN#(5, 11)
-        addRecFN(control, 1'b0, a, b, roundingMode, out, exceptionFlags);
+    wire [21:0] result;
+    module_addRecF16 addRecF16(
+        .addRecF16_1(1'b0),
+        .addRecF16_2(a),
+        .addRecF16_3(b),
+        .addRecF16_4(roundingMode),
+        .addRecF16_5(control[0]),
+        .addRecF16(result)
+    );
+    assign out = result[21:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -62,8 +71,17 @@ module
         output [4:0] exceptionFlags
     );
 
-    addRecFN#(8, 24)
-        addRecFN(control, 1'b0, a, b, roundingMode, out, exceptionFlags);
+    wire [37:0] result;
+    module_addRecF32 addRecF32(
+        .addRecF32_1(1'b0),
+        .addRecF32_2(a),
+        .addRecF32_3(b),
+        .addRecF32_4(roundingMode),
+        .addRecF32_5(control[0]),
+        .addRecF32(result)
+    );
+    assign out = result[37:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -77,8 +95,17 @@ module
         output [4:0] exceptionFlags
     );
 
-    addRecFN#(11, 53)
-        addRecFN(control, 1'b0, a, b, roundingMode, out, exceptionFlags);
+    wire [69:0] result;
+    module_addRecF64 addRecF64(
+        .addRecF64_1(1'b0),
+        .addRecF64_2(a),
+        .addRecF64_3(b),
+        .addRecF64_4(roundingMode),
+        .addRecF64_5(control[0]),
+        .addRecF64(result)
+    );
+    assign out = result[69:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -92,8 +119,17 @@ module
         output [4:0] exceptionFlags
     );
 
-    addRecFN#(15, 113)
-        addRecFN(control, 1'b0, a, b, roundingMode, out, exceptionFlags);
+    wire [133:0] result;
+    module_addRecF128 addRecF128(
+        .addRecF128_1(1'b0),
+        .addRecF128_2(a),
+        .addRecF128_3(b),
+        .addRecF128_4(roundingMode),
+        .addRecF128_5(control[0]),
+        .addRecF128(result)
+    );
+    assign out = result[133:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -107,8 +143,17 @@ module
         output [4:0] exceptionFlags
     );
 
-    addRecFN#(5, 11)
-        addRecFN(control, 1'b1, a, b, roundingMode, out, exceptionFlags);
+    wire [21:0] result;
+    module_addRecF16 addRecF16(
+        .addRecF16_1(1'b1),
+        .addRecF16_2(a),
+        .addRecF16_3(b),
+        .addRecF16_4(roundingMode),
+        .addRecF16_5(control[0]),
+        .addRecF16(result)
+    );
+    assign out = result[21:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -122,8 +167,17 @@ module
         output [4:0] exceptionFlags
     );
 
-    addRecFN#(8, 24)
-        addRecFN(control, 1'b1, a, b, roundingMode, out, exceptionFlags);
+    wire [37:0] result;
+    module_addRecF32 addRecF32(
+        .addRecF32_1(1'b1),
+        .addRecF32_2(a),
+        .addRecF32_3(b),
+        .addRecF32_4(roundingMode),
+        .addRecF32_5(control[0]),
+        .addRecF32(result)
+    );
+    assign out = result[37:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -137,8 +191,17 @@ module
         output [4:0] exceptionFlags
     );
 
-    addRecFN#(11, 53)
-        addRecFN(control, 1'b1, a, b, roundingMode, out, exceptionFlags);
+    wire [69:0] result;
+    module_addRecF64 addRecF64(
+        .addRecF64_1(1'b1),
+        .addRecF64_2(a),
+        .addRecF64_3(b),
+        .addRecF64_4(roundingMode),
+        .addRecF64_5(control[0]),
+        .addRecF64(result)
+    );
+    assign out = result[69:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -152,8 +215,16 @@ module
         output [4:0] exceptionFlags
     );
 
-    addRecFN#(15, 113)
-        addRecFN(control, 1'b1, a, b, roundingMode, out, exceptionFlags);
+    wire [133:0] result;
+    module_addRecF128 addRecF128(
+        .addRecF128_1(1'b1),
+        .addRecF128_2(a),
+        .addRecF128_3(b),
+        .addRecF128_4(roundingMode),
+        .addRecF128_5(control[0]),
+        .addRecF128(result)
+    );
+    assign out = result[133:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
-

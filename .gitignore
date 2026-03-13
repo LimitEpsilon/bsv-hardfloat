@@ -1,3 +1,4 @@
 buildDir/*
 *.bo
 tests/HardFloat-1/test/build/*
+tests/HardFloat-1/source/module*

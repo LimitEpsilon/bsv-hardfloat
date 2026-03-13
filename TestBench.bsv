@@ -1,4 +1,5 @@
 import HardFloat::*;
+import AddRecFN::*;
 
 (* noinline *)
 function RecFNFromFN#(5, 11) f16ToRecF16;
@@ -280,3 +281,22 @@ function CompareRecFN#(15, 113) compareRecF128;
   return mkCompareRecFN;
 endfunction
 
+(* noinline *)
+function AddRecFN#(5, 11) addRecF16;
+  return mkAddRecFN;
+endfunction
+
+(* noinline *)
+function AddRecFN#(8, 24) addRecF32;
+  return mkAddRecFN;
+endfunction
+
+(* noinline *)
+function AddRecFN#(11, 53) addRecF64;
+  return mkAddRecFN;
+endfunction
+
+(* noinline *)
+function AddRecFN#(15, 113) addRecF128;
+  return mkAddRecFN;
+endfunction
