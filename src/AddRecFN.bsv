@@ -33,27 +33,27 @@ function AddRawFN#(expWidth, sigWidth) mkAddRawFN
     Bool notEqSigns_signZero = roundingMode == round_min;
     Int#(TAdd#(2, expWidth)) sDiffExps = a.sExp - b.sExp;
     Bit#(TAdd#(2, expWidth)) bDiffExps = pack(sDiffExps);
-    Int#(TLog#(sigWidth)) modNatAlignDist = 
-        unpack(pack((sDiffExps < 0) ? b.sExp - a.sExp : sDiffExps)[alignDistWidth - 1 : 0]);
+    Bit#(TLog#(sigWidth)) modNatAlignDist = 
+        pack((sDiffExps < 0) ? b.sExp - a.sExp : sDiffExps)[alignDistWidth - 1 : 0];
     Bit#(TLog#(sigWidth)) bDiffExps_alignLow = bDiffExps[alignDistWidth - 1 : 0];
     Bool isMaxAlign =
       (sDiffExps >> alignDistWidth) != 0 &&
         ((sDiffExps >> alignDistWidth) != -1 || bDiffExps_alignLow == 0);
-    Int#(TLog#(sigWidth)) alignDist = isMaxAlign ? ((1 << alignDistWidth) - 1) : modNatAlignDist;
+    Bit#(TLog#(sigWidth)) alignDist = isMaxAlign ? fromInteger(2 ** alignDistWidth - 1) : modNatAlignDist;
     Bool closeSubMags = !eqSigns && !isMaxAlign && (modNatAlignDist <= 1);
     
     Int#(TAdd#(3, sigWidth)) close_alignedSigA = 
       ((0 <= sDiffExps && (bDiffExps[0] == 1)) ? signExtend(unpack(pack(a.sig))) << 2 : 0) |
       ((0 <= sDiffExps && (bDiffExps[0] == 0)) ? signExtend(unpack(pack(a.sig))) << 1 : 0) |
       (sDiffExps < 0                           ? signExtend(unpack(pack(a.sig)))      : 0);
-    Int#(TAdd#(3, sigWidth)) close_sSigSum = close_alignedSigA - signExtend(unpack(pack(b.sig << 1)));
-    Int#(TAdd#(sigWidth, 2)) close_sigSum = unpack(pack((close_sSigSum < 0 ? -close_sSigSum : close_sSigSum))[sW + 1 : 0]);
-    Int#(TAdd#(sigWidth, 2)) close_adjustedSigSum = close_sigSum << (fromInteger(sW) & 1);
-    Bit#(TDiv#(TAdd#(sigWidth, 2), 2)) close_reduced2SigSum = orReduceBy2(pack(close_adjustedSigSum));
-    Bit#(TLog#(TDiv#(TAdd#(sigWidth, 2), 2)))
+    Int#(TAdd#(3, sigWidth)) close_sSigSum = close_alignedSigA - unpack(zeroExtend(pack(b.sig << 1)));
+    Bit#(TAdd#(sigWidth, 2)) close_sigSum = pack(close_sSigSum < 0 ? -close_sSigSum : close_sSigSum)[sW + 1 : 0];
+    Bit#(TAdd#(sigWidth, 3)) close_adjustedSigSum = zeroExtend(close_sigSum) << (fromInteger(sW) & 1);
+    Bit#(TDiv#(TAdd#(sigWidth, 3), 2)) close_reduced2SigSum = orReduceBy2(close_adjustedSigSum);
+    Bit#(TLog#(TDiv#(TAdd#(sigWidth, 3), 2)))
       close_normDistReduced2 = countLeadingZeroes(close_reduced2SigSum);
-    Bit#(TLog#(sigWidth)) close_nearNormDist = ({close_normDistReduced2, 1'b0})[alignDistWidth - 1 : 0];
-    Bit#(TAdd#(sigWidth, 3)) close_sigOut = pack((zeroExtend(close_sigSum) << close_nearNormDist) << 1);
+    Bit#(TLog#(sigWidth)) close_nearNormDist = ({close_normDistReduced2, 1'b0} - fromInteger(2 * (1 - sW % 2)))[alignDistWidth - 1 : 0];
+    Bit#(TAdd#(sigWidth, 3)) close_sigOut = (zeroExtend(close_sigSum) << close_nearNormDist) << 1;
     Bit#(2) close_sigOut_top = pack(close_sigOut)[sW + 2 : sW + 1];
     Bool close_totalCancellation = !(orR(close_sigOut_top));
     Bool close_notTotalCancellation_signOut = unpack(pack(a.sign) ^ pack(close_sSigSum < 0));
@@ -62,8 +62,8 @@ function AddRawFN#(expWidth, sigWidth) mkAddRawFN
     Bit#(sigWidth) far_sigLarger  = pack(truncate(sDiffExps < 0 ? b.sig : a.sig));
     Bit#(sigWidth) far_sigSmaller = pack(truncate(sDiffExps < 0 ? a.sig : b.sig));
     Bit#(TAdd#(sigWidth, 5)) far_mainAlignedSigSmaller = {far_sigSmaller, 5'b0} >> alignDist;
-    Bit#(TDiv#(TAdd#(sigWidth, 5), 4)) far_reduced4SigSmaller = orReduceBy4({far_sigSmaller, 5'b0});
-    Bit#(TDiv#(TAdd#(sigWidth, 5), 4)) far_roundExtraMask = 
+    Bit#(TDiv#(TAdd#(sigWidth, 2), 4)) far_reduced4SigSmaller = orReduceBy4({far_sigSmaller, 2'b0});
+    Bit#(TDiv#(TAdd#(sigWidth, 2), 4)) far_roundExtraMask = 
       lowMask(pack(alignDist) >> 2, (sW + 5)/4, 0);
     Bit#(TAdd#(sigWidth, 2)) far_alignedSigSmaller_top = far_mainAlignedSigSmaller[sW + 4 : 3];
     Bit#(TAdd#(sigWidth, 3)) far_alignedSigSmaller =
@@ -149,7 +149,7 @@ function AddRecFN#(expWidth, sigWidth) mkAddRecFN
       roundingMode
     );
 
-    RoundRawFNToRecFN#(expWidth, sigWidth) roundRawFNToRecFN = mkRoundRawFNToRecFN(0);
+    RoundRawFNToRecFN#(expWidth, sigWidth) roundRawFNToRecFN = mkRoundRawFNToRecFN(flRoundOpt_subnormAlwaysExact);
     let roundRes = roundRawFNToRecFN(
       tpl_1(addRes),
       False,
