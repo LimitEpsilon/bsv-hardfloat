@@ -95,10 +95,6 @@ function AddRawFN#(expWidth, sigWidth) mkAddRawFN
         closeSubMags ? close_nearNormDist : far_subMags1[valueOf(TLog#(sigWidth)) - 1 : 0];
     Int#(TMax#(TLog#(sigWidth), TAdd#(2, expWidth))) common_sExpOut_long =
         signExtend(common_sExpOut_long1) - unpack(zeroExtend(common_sExpOut_long2));
-    /*    // 2 + expWidth
-        signExtend((closeSubMags || (sDiffExps < 0)) ? b.sExp : a.sExp)
-            // log(sigWidth)
-            - unpack(closeSubMags ? zeroExtend(close_nearNormDist) : zeroExtend(pack(far_subMags))); */
     Int#(TAdd#(2, expWidth)) common_sExpOut = unpack(pack(common_sExpOut_long)[eW + 1 : 0]); // i think this is safe?
     Bit#(TAdd#(3, sigWidth)) common_sigOut = closeSubMags ? close_sigOut : far_sigOut;
 
