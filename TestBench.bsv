@@ -1,5 +1,6 @@
 import HardFloat::*;
 import AddRecFN::*;
+import MulRecFN::*;
 
 (* noinline *)
 function RecFNFromFN#(5, 11) f16ToRecF16;
@@ -299,4 +300,24 @@ endfunction
 (* noinline *)
 function AddRecFN#(15, 113) addRecF128;
   return mkAddRecFN;
+endfunction
+
+(* noinline *)
+function MulRecFN#(5, 11) mulRecF16;
+  return mkMulRecFN;
+endfunction
+
+(* noinline *)
+function MulRecFN#(8, 24) mulRecF32;
+  return mkMulRecFN;
+endfunction
+
+(* noinline *)
+function MulRecFN#(11, 53) mulRecF64;
+  return mkMulRecFN;
+endfunction
+
+(* noinline *)
+function MulRecFN#(15, 113) mulRecF128;
+  return mkMulRecFN;
 endfunction

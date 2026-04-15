@@ -115,7 +115,7 @@ function MulRecFN#(expWidth, sigWidth) mkMulRecFN
     MulRawFN#(expWidth, sigWidth) mulRawFn = mkMulRawFN;
     match {.invalidExc, .rawOut} = mulRawFn(a_raw, b_raw);
     RoundRawFNToRecFN#(expWidth, sigWidth) roundRawFNToRecFN =
-      mkRoundRawFNToRecFN(flRoundOpt_sigMSBitAlwaysZero);
+      mkRoundRawFNToRecFN(0);
     return roundRawFNToRecFN(
       invalidExc,
       False,
