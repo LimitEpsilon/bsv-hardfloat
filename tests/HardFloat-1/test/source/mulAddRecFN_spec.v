@@ -48,9 +48,18 @@ module
     );
 
     wire [16:0] recF16_1 = 'h08000;
-    mulAddRecFN#(5, 11)
-        mulAddRecFN(
-            control, 2'b0, a, recF16_1, b, roundingMode, out, exceptionFlags);
+    wire [21:0] result;
+    module_mulAddRecF16 mulAddRecF16(
+        .mulAddRecF16_1(2'b0),
+        .mulAddRecF16_2(a),
+        .mulAddRecF16_3(recF16_1),
+        .mulAddRecF16_4(b),
+        .mulAddRecF16_5(roundingMode),
+        .mulAddRecF16_6(control[0]),
+        .mulAddRecF16(result)
+    );
+    assign out = result[21:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -65,9 +74,18 @@ module
     );
 
     wire [32:0] recF32_1 = 33'h080000000;
-    mulAddRecFN#(8, 24)
-        mulAddRecFN(
-            control, 2'b0, a, recF32_1, b, roundingMode, out, exceptionFlags);
+    wire [37:0] result;
+    module_mulAddRecF32 mulAddRecF32(
+        .mulAddRecF32_1(2'b0),
+        .mulAddRecF32_2(a),
+        .mulAddRecF32_3(recF32_1),
+        .mulAddRecF32_4(b),
+        .mulAddRecF32_5(roundingMode),
+        .mulAddRecF32_6(control[0]),
+        .mulAddRecF32(result)
+    );
+    assign out = result[37:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -82,9 +100,18 @@ module
     );
 
     wire [64:0] recF64_1 = 65'h08000000000000000;
-    mulAddRecFN#(11, 53)
-        mulAddRecFN(
-            control, 2'b0, a, recF64_1, b, roundingMode, out, exceptionFlags);
+    wire [69:0] result;
+    module_mulAddRecF64 mulAddRecF64(
+        .mulAddRecF64_1(2'b0),
+        .mulAddRecF64_2(a),
+        .mulAddRecF64_3(recF64_1),
+        .mulAddRecF64_4(b),
+        .mulAddRecF64_5(roundingMode),
+        .mulAddRecF64_6(control[0]),
+        .mulAddRecF64(result)
+    );
+    assign out = result[69:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -99,10 +126,18 @@ module
     );
 
     wire [128:0] recF128_1 = 129'h080000000000000000000000000000000;
-    mulAddRecFN#(15, 113)
-        mulAddRecFN(
-            control, 2'b0, a, recF128_1, b, roundingMode, out, exceptionFlags
-        );
+    wire [133:0] result;
+    module_mulAddRecF128 mulAddRecF128(
+        .mulAddRecF128_1(2'b0),
+        .mulAddRecF128_2(a),
+        .mulAddRecF128_3(recF128_1),
+        .mulAddRecF128_4(b),
+        .mulAddRecF128_5(roundingMode),
+        .mulAddRecF128_6(control[0]),
+        .mulAddRecF128(result)
+    );
+    assign out = result[133:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -117,10 +152,18 @@ module
     );
 
     wire [16:0] zeroAddend = {a[16] ^ b[16], 16'b0};
-    mulAddRecFN#(5, 11)
-        mulAddRecFN(
-            control, 2'b0, a, b, zeroAddend, roundingMode, out, exceptionFlags
-        );
+    wire [21:0] result;
+    module_mulAddRecF16 mulAddRecF16(
+        .mulAddRecF16_1(2'b0),
+        .mulAddRecF16_2(a),
+        .mulAddRecF16_3(b),
+        .mulAddRecF16_4(zeroAddend),
+        .mulAddRecF16_5(roundingMode),
+        .mulAddRecF16_6(control[0]),
+        .mulAddRecF16(result)
+    );
+    assign out = result[21:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -135,10 +178,18 @@ module
     );
 
     wire [32:0] zeroAddend = {a[32] ^ b[32], 32'b0};
-    mulAddRecFN#(8, 24)
-        mulAddRecFN(
-            control, 2'b0, a, b, zeroAddend, roundingMode, out, exceptionFlags
-        );
+    wire [37:0] result;
+    module_mulAddRecF32 mulAddRecF32(
+        .mulAddRecF32_1(2'b0),
+        .mulAddRecF32_2(a),
+        .mulAddRecF32_3(b),
+        .mulAddRecF32_4(zeroAddend),
+        .mulAddRecF32_5(roundingMode),
+        .mulAddRecF32_6(control[0]),
+        .mulAddRecF32(result)
+    );
+    assign out = result[37:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -153,10 +204,18 @@ module
     );
 
     wire [64:0] zeroAddend = {a[64] ^ b[64], 64'b0};
-    mulAddRecFN#(11, 53)
-        mulAddRecFN(
-            control, 2'b0, a, b, zeroAddend, roundingMode, out, exceptionFlags
-        );
+    wire [69:0] result;
+    module_mulAddRecF64 mulAddRecF64(
+        .mulAddRecF64_1(2'b0),
+        .mulAddRecF64_2(a),
+        .mulAddRecF64_3(b),
+        .mulAddRecF64_4(zeroAddend),
+        .mulAddRecF64_5(roundingMode),
+        .mulAddRecF64_6(control[0]),
+        .mulAddRecF64(result)
+    );
+    assign out = result[69:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -171,10 +230,18 @@ module
     );
 
     wire [128:0] zeroAddend = {a[128] ^ b[128], 128'b0};
-    mulAddRecFN#(15, 113)
-        mulAddRecFN(
-            control, 2'b0, a, b, zeroAddend, roundingMode, out, exceptionFlags
-        );
+    wire [133:0] result;
+    module_mulAddRecF128 mulAddRecF128(
+        .mulAddRecF128_1(2'b0),
+        .mulAddRecF128_2(a),
+        .mulAddRecF128_3(b),
+        .mulAddRecF128_4(zeroAddend),
+        .mulAddRecF128_5(roundingMode),
+        .mulAddRecF128_6(control[0]),
+        .mulAddRecF128(result)
+    );
+    assign out = result[133:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -190,8 +257,18 @@ module
         output [4:0] exceptionFlags
     );
 
-    mulAddRecFN#(5, 11)
-        mulAddRecFN(control, op, a, b, c, roundingMode, out, exceptionFlags);
+    wire [21:0] result;
+    module_mulAddRecF16 mulAddRecF16(
+        .mulAddRecF16_1(op),
+        .mulAddRecF16_2(a),
+        .mulAddRecF16_3(b),
+        .mulAddRecF16_4(c),
+        .mulAddRecF16_5(roundingMode),
+        .mulAddRecF16_6(control[0]),
+        .mulAddRecF16(result)
+    );
+    assign out = result[21:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -207,8 +284,18 @@ module
         output [4:0] exceptionFlags
     );
 
-    mulAddRecFN#(8, 24)
-        mulAddRecFN(control, op, a, b, c, roundingMode, out, exceptionFlags);
+    wire [37:0] result;
+    module_mulAddRecF32 mulAddRecF32(
+        .mulAddRecF32_1(op),
+        .mulAddRecF32_2(a),
+        .mulAddRecF32_3(b),
+        .mulAddRecF32_4(c),
+        .mulAddRecF32_5(roundingMode),
+        .mulAddRecF32_6(control[0]),
+        .mulAddRecF32(result)
+    );
+    assign out = result[37:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -224,8 +311,18 @@ module
         output [4:0] exceptionFlags
     );
 
-    mulAddRecFN#(11, 53)
-        mulAddRecFN(control, op, a, b, c, roundingMode, out, exceptionFlags);
+    wire [69:0] result;
+    module_mulAddRecF64 mulAddRecF64(
+        .mulAddRecF64_1(op),
+        .mulAddRecF64_2(a),
+        .mulAddRecF64_3(b),
+        .mulAddRecF64_4(c),
+        .mulAddRecF64_5(roundingMode),
+        .mulAddRecF64_6(control[0]),
+        .mulAddRecF64(result)
+    );
+    assign out = result[69:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -241,8 +338,17 @@ module
         output [4:0] exceptionFlags
     );
 
-    mulAddRecFN#(15, 113)
-        mulAddRecFN(control, op, a, b, c, roundingMode, out, exceptionFlags);
+    wire [133:0] result;
+    module_mulAddRecF128 mulAddRecF128(
+        .mulAddRecF128_1(op),
+        .mulAddRecF128_2(a),
+        .mulAddRecF128_3(b),
+        .mulAddRecF128_4(c),
+        .mulAddRecF128_5(roundingMode),
+        .mulAddRecF128_6(control[0]),
+        .mulAddRecF128(result)
+    );
+    assign out = result[133:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
-

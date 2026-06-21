@@ -52,23 +52,23 @@ module
         output [4:0] exceptionFlags
     );
 
-    wire sqrtOpOut;
-    divSqrtRecFN_small#(5, 11, 0)
-        divSqrtRecFN(
-            nReset,
-            clock,
-            control,
-            inReady,
-            inValid,
-            1'b0,
-            a,
-            b,
-            roundingMode,
-            outValid,
-            sqrtOpOut,
-            out,
-            exceptionFlags
-        );
+    wire [21:0] result;
+    mkDivSqrtRecF16 divSqrtRecFN(
+        .CLK(clock),
+        .RST_N(nReset),
+        .inReady(inReady),
+        .req_inValid(inValid),
+        .req_sqrtOp(1'b0),
+        .req_a(a),
+        .req_b(b),
+        .req_roundingMode(roundingMode),
+        .outValid_div(outValid),
+        .outValid_sqrt(),
+        .result_control(control[0]),
+        .result(result)
+    );
+    assign out = result[21:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -87,23 +87,23 @@ module
         output [4:0] exceptionFlags
     );
 
-    wire sqrtOpOut;
-    divSqrtRecFN_small#(8, 24, 0)
-        divSqrtRecFN(
-            nReset,
-            clock,
-            control,
-            inReady,
-            inValid,
-            1'b0,
-            a,
-            b,
-            roundingMode,
-            outValid,
-            sqrtOpOut,
-            out,
-            exceptionFlags
-        );
+    wire [37:0] result;
+    mkDivSqrtRecF32 divSqrtRecFN(
+        .CLK(clock),
+        .RST_N(nReset),
+        .inReady(inReady),
+        .req_inValid(inValid),
+        .req_sqrtOp(1'b0),
+        .req_a(a),
+        .req_b(b),
+        .req_roundingMode(roundingMode),
+        .outValid_div(outValid),
+        .outValid_sqrt(),
+        .result_control(control[0]),
+        .result(result)
+    );
+    assign out = result[37:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -122,23 +122,23 @@ module
         output [4:0] exceptionFlags
     );
 
-    wire sqrtOpOut;
-    divSqrtRecFN_small#(11, 53, 0)
-        divSqrtRecFN(
-            nReset,
-            clock,
-            control,
-            inReady,
-            inValid,
-            1'b0,
-            a,
-            b,
-            roundingMode,
-            outValid,
-            sqrtOpOut,
-            out,
-            exceptionFlags
-        );
+    wire [69:0] result;
+    mkDivSqrtRecF64 divSqrtRecFN(
+        .CLK(clock),
+        .RST_N(nReset),
+        .inReady(inReady),
+        .req_inValid(inValid),
+        .req_sqrtOp(1'b0),
+        .req_a(a),
+        .req_b(b),
+        .req_roundingMode(roundingMode),
+        .outValid_div(outValid),
+        .outValid_sqrt(),
+        .result_control(control[0]),
+        .result(result)
+    );
+    assign out = result[69:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -157,23 +157,23 @@ module
         output [4:0] exceptionFlags
     );
 
-    wire sqrtOpOut;
-    divSqrtRecFN_small#(15, 113, 0)
-        divSqrtRecFN(
-            nReset,
-            clock,
-            control,
-            inReady,
-            inValid,
-            1'b0,
-            a,
-            b,
-            roundingMode,
-            outValid,
-            sqrtOpOut,
-            out,
-            exceptionFlags
-        );
+    wire [133:0] result;
+    mkDivSqrtRecF128 divSqrtRecFN(
+        .CLK(clock),
+        .RST_N(nReset),
+        .inReady(inReady),
+        .req_inValid(inValid),
+        .req_sqrtOp(1'b0),
+        .req_a(a),
+        .req_b(b),
+        .req_roundingMode(roundingMode),
+        .outValid_div(outValid),
+        .outValid_sqrt(),
+        .result_control(control[0]),
+        .result(result)
+    );
+    assign out = result[133:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -191,23 +191,23 @@ module
         output [4:0] exceptionFlags
     );
 
-    wire sqrtOpOut;
-    divSqrtRecFN_small#(5, 11, 0)
-        divSqrtRecFN(
-            nReset,
-            clock,
-            control,
-            inReady,
-            inValid,
-            1'b1,
-            a,
-            17'b0,
-            roundingMode,
-            outValid,
-            sqrtOpOut,
-            out,
-            exceptionFlags
-        );
+    wire [21:0] result;
+    mkDivSqrtRecF16 divSqrtRecFN(
+        .CLK(clock),
+        .RST_N(nReset),
+        .inReady(inReady),
+        .req_inValid(inValid),
+        .req_sqrtOp(1'b1),
+        .req_a(a),
+        .req_b(17'b0),
+        .req_roundingMode(roundingMode),
+        .outValid_sqrt(outValid),
+        .outValid_div(),
+        .result_control(control[0]),
+        .result(result)
+    );
+    assign out = result[21:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -225,23 +225,23 @@ module
         output [4:0] exceptionFlags
     );
 
-    wire sqrtOpOut;
-    divSqrtRecFN_small#(8, 24, 0)
-        divSqrtRecFN(
-            nReset,
-            clock,
-            control,
-            inReady,
-            inValid,
-            1'b1,
-            a,
-            33'b0,
-            roundingMode,
-            outValid,
-            sqrtOpOut,
-            out,
-            exceptionFlags
-        );
+    wire [37:0] result;
+    mkDivSqrtRecF32 divSqrtRecFN(
+        .CLK(clock),
+        .RST_N(nReset),
+        .inReady(inReady),
+        .req_inValid(inValid),
+        .req_sqrtOp(1'b1),
+        .req_a(a),
+        .req_b(33'b0),
+        .req_roundingMode(roundingMode),
+        .outValid_sqrt(outValid),
+        .outValid_div(),
+        .result_control(control[0]),
+        .result(result)
+    );
+    assign out = result[37:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -259,23 +259,23 @@ module
         output [4:0] exceptionFlags
     );
 
-    wire sqrtOpOut;
-    divSqrtRecFN_small#(11, 53, 0)
-        divSqrtRecFN(
-            nReset,
-            clock,
-            control,
-            inReady,
-            inValid,
-            1'b1,
-            a,
-            65'b0,
-            roundingMode,
-            outValid,
-            sqrtOpOut,
-            out,
-            exceptionFlags
-        );
+    wire [69:0] result;
+    mkDivSqrtRecF64 divSqrtRecFN(
+        .CLK(clock),
+        .RST_N(nReset),
+        .inReady(inReady),
+        .req_inValid(inValid),
+        .req_sqrtOp(1'b1),
+        .req_a(a),
+        .req_b(65'b0),
+        .req_roundingMode(roundingMode),
+        .outValid_sqrt(outValid),
+        .outValid_div(),
+        .result_control(control[0]),
+        .result(result)
+    );
+    assign out = result[69:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
 
@@ -293,23 +293,22 @@ module
         output [4:0] exceptionFlags
     );
 
-    wire sqrtOpOut;
-    divSqrtRecFN_small#(15, 113, 0)
-        divSqrtRecFN(
-            nReset,
-            clock,
-            control,
-            inReady,
-            inValid,
-            1'b1,
-            a,
-            129'b0,
-            roundingMode,
-            outValid,
-            sqrtOpOut,
-            out,
-            exceptionFlags
-        );
+    wire [133:0] result;
+    mkDivSqrtRecF128 divSqrtRecFN(
+        .CLK(clock),
+        .RST_N(nReset),
+        .inReady(inReady),
+        .req_inValid(inValid),
+        .req_sqrtOp(1'b1),
+        .req_a(a),
+        .req_b(129'b0),
+        .req_roundingMode(roundingMode),
+        .outValid_sqrt(outValid),
+        .outValid_div(),
+        .result_control(control[0]),
+        .result(result)
+    );
+    assign out = result[133:5];
+    assign exceptionFlags = result[4:0];
 
 endmodule
-

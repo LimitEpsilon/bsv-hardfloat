@@ -46,7 +46,8 @@ CFLAGS ?= -O2
 EXE =
 
 TRANSLATE_V_C_MK = \
-  verilator -Wno-WIDTH -I$(SOURCE_DIR)/$(SPECIALIZE_TYPE) -I$(SOURCE_DIR) \
+  verilator -Wno-WIDTH +define+BSV_NO_INITIAL_BLOCKS \
+    -I$(SOURCE_DIR)/$(SPECIALIZE_TYPE) -I$(SOURCE_DIR) \
     --cc --exe --compiler gcc -CFLAGS "-I.. $(CFLAGS)"
 OBJ_DIR = obj_dir
 TESTFLOAT_GEN = ../../../../berkeley-testfloat-3/build/Linux-ARM-VFPv2-GCC/testfloat_gen

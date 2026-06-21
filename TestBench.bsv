@@ -1,6 +1,8 @@
 import HardFloat::*;
 import AddRecFN::*;
 import MulRecFN::*;
+import MulAddRecFN::*;
+import DivSqrtRecFN::*;
 
 (* noinline *)
 function RecFNFromFN#(5, 11) f16ToRecF16;
@@ -321,3 +323,47 @@ endfunction
 function MulRecFN#(15, 113) mulRecF128;
   return mkMulRecFN;
 endfunction
+
+(* noinline *)
+function MulAddRecFN#(5, 11) mulAddRecF16;
+  return mkMulAddRecFN;
+endfunction
+
+(* noinline *)
+function MulAddRecFN#(8, 24) mulAddRecF32;
+  return mkMulAddRecFN;
+endfunction
+
+(* noinline *)
+function MulAddRecFN#(11, 53) mulAddRecF64;
+  return mkMulAddRecFN;
+endfunction
+
+(* noinline *)
+function MulAddRecFN#(15, 113) mulAddRecF128;
+  return mkMulAddRecFN;
+endfunction
+
+(* synthesize *)
+module mkDivSqrtRecF16(DivSqrtRecFN_small#(5, 11));
+  let m <- mkDivSqrtRecFN_small(0);
+  return m;
+endmodule
+
+(* synthesize *)
+module mkDivSqrtRecF32(DivSqrtRecFN_small#(8, 24));
+  let m <- mkDivSqrtRecFN_small(0);
+  return m;
+endmodule
+
+(* synthesize *)
+module mkDivSqrtRecF64(DivSqrtRecFN_small#(11, 53));
+  let m <- mkDivSqrtRecFN_small(0);
+  return m;
+endmodule
+
+(* synthesize *)
+module mkDivSqrtRecF128(DivSqrtRecFN_small#(15, 113));
+  let m <- mkDivSqrtRecFN_small(0);
+  return m;
+endmodule
